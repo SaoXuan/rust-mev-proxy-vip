@@ -31,4 +31,4 @@ jito_uuid: ""
 # 校验权限，如果鉴权不通过那么，程序会自动停止。请通过正规渠道购买，代理请求会进行采样，只允许支付钱包发送的请求被代理，否则程序会自动停止
 auth_config:
   pay_wallet_address: "你的套利钱包地址"
-  signature: "用你的套利钱包支付200USDC 的交易hash"
+  signature: "用你的套利钱包支付 USDC 的交易hash"
