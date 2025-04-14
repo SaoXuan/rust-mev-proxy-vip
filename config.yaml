@@ -1,0 +1,34 @@
+server:
+  host: "127.0.0.1" #服务绑定的ip
+  port: 8081 # 服务在哪个端口启动
+  workers: 80 # web线程数
+  keep_alive_timeout: 75 # 秒为单位，外部链接保持多久长链接
+  shutdown_timeout: 30 # 秒为单位，关闭的时候等待多少秒让所有的进程完成
+
+logging:
+  level: "info"
+  format: "json"
+  access_log: true # 是否打印访问日志
+
+# jito 发送引擎配置信息
+jito_engine:
+   - NL  # 至少需要一个值，或者空数组 []
+   - DE 
+   - NY 
+   - SLC 
+   - Tokyo
+   - LND 
+   - Main 
+ # - Tokyo
+
+# 发送交易类型，建议选择Mixed，可选Rpc,Grpc,Mixed
+rpc_type: Mixed
+# jito uuid
+jito_uuid: ""
+# 多ip配置，如果不想写可以将ip_addr注释掉，然后系统会自动扫描网卡
+#ip_addrs: []
+
+# 校验权限，如果鉴权不通过那么，程序会自动停止。请通过正规渠道购买，代理请求会进行采样，只允许支付钱包发送的请求被代理，否则程序会自动停止
+auth_config:
+  pay_wallet_address: "你的套利钱包地址"
+  signature: "用你的套利钱包支付200USDC 的交易hash"
