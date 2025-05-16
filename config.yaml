@@ -1,25 +1,31 @@
 server:
-  host: "127.0.0.1" #服务绑定的ip
+  host: "0.0.0.0" #服务绑定的ip，如果需要外网访问请填写0.0.0.0
   port: 8081 # 服务在哪个端口启动
-  workers: 80 # web线程数
+  workers: 20 # web线程数
   keep_alive_timeout: 75 # 秒为单位，外部链接保持多久长链接
   shutdown_timeout: 30 # 秒为单位，关闭的时候等待多少秒让所有的进程完成
 
 logging:
   level: "info"
   format: "json"
-  access_log: true # 是否打印访问日志
+  access_log: false # 是否打印访问日志，可以根据这个查看延时
+  access_success_rate: true # 是否打印成功率
 
-# jito 发送引擎配置信息
+
+# 异步发送配置，如果你的proxy 链接的engine 距离你的bot太远，你可以选择异步模式，bot只负责提交交易到proxy，具体怎么发送，由proxy来慢慢消费
+async_sender:
+  enabled: true # 是否启用异步发送
+  workers: 300 # 线程池大小
+  queue_size: 1000 # 任务队列大小
+
+
+# jito 发送引擎配置信息,你可以起多个proxy，每个proxy指定不同的区域
 jito_engine:
-   - NL  # 至少需要一个值，或者空数组 []
-   - DE 
-   - NY 
-   - SLC 
-   - Tokyo
-   - LND 
-   - Main 
- # - Tokyo
+  - NL # 荷兰阿姆斯特丹节点
+  - DE # 德国法兰克福节点
+  - NY # 美国纽约节点
+  - SLC # 美国盐湖城节点
+  #- Tokyo  # 日本东京节点
 
 # 发送交易类型，建议选择Mixed，可选Rpc,Grpc,Mixed
 rpc_type: Mixed
@@ -30,5 +36,5 @@ jito_uuid: ""
 
 # 校验权限，如果鉴权不通过那么，程序会自动停止。请通过正规渠道购买，代理请求会进行采样，只允许支付钱包发送的请求被代理，否则程序会自动停止
 auth_config:
-  pay_wallet_address: "你的套利钱包地址"
-  signature: "用你的套利钱包支付 USDC 的交易hash"
+  pay_wallet_address: "xxxx"
+  signature: "xxxx"
